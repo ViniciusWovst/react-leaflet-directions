@@ -1,26 +1,45 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "declarationDir": "dist/ts",
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noUnusedLocals": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false,
+    "target": "es2015",
+    "module": "esnext",
+    "strict": false,
+    "jsx": "react",
     "lib": [
       "dom",
+      "es6",
       "dom.iterable",
-      "esnext"
+      "esnext.asynciterable"
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "noEmit": true
   },
   "include": [
-    "src"
+    "src/**/*",
+    "types/**/*",
+    "src/*", 
+    "@types"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/assets/skins",
+    "**/*.test.ts",
+    "**/*.test.tsx"
   ]
 }

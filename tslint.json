@@ -1,0 +1,20 @@
+{
+    "extends": [
+      "tslint:latest",
+      "tslint-plugin-prettier",
+      "tslint-config-prettier"
+    ],
+    "rulesDirectory": ["tslint-plugin-prettier"],
+    "rules": {
+      "member-access": [true, "no-public"],
+      "no-implicit-dependencies": false,
+      "no-submodule-imports": false,
+      "ordered-imports": false,
+      "object-literal-sort-keys": false,
+      "no-string-literal": false,
+      "only-arrow-functions": false,
+      "jsx-no-lambda": false,
+      "prettier": true
+    }
+  }
+  

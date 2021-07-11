@@ -1,0 +1,103 @@
+
+{
+  "env": {
+    "commonjs": true,
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest/all",
+    "plugin:jest-dom/recommended",
+    //"plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "import", "prettier"],
+  "globals": {
+    "__DEVELOPMENT__": "readonly",
+    "__PRODUCTION__": "readonly",
+    "__API_URL__": "readonly",
+    "__APP_NAME__": "readonly"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": [
+          "error"
+        ]
+      }
+    },
+    {
+      "files": [
+        "webpack*",
+        "wallaby.js",
+        "tailwind.config.js",
+        "babel.config.js",
+        "jest.config*",
+        "postcss.config.js",
+        "prettier.config.js"
+      ],
+      "env": {
+        "node": true
+      },
+      "rules": {
+        "unicorn/prefer-module": 0,
+        "unicorn/prefer-node-protocol": 0
+      }
+    },
+    {
+      "files": [
+        "jest.setup.ts",
+        "**/*.test.js",
+        "**/*.test.ts",
+        "**/*.test.jsx",
+        "**/*.test.tsx"
+      ],
+      "env": {
+        "jest": true,
+        "jest/globals": true
+      },
+      "rules": {
+        "@typescript-eslint/no-magic-numbers": 0
+      }
+    }
+  ],
+  "rules": {
+    "react/prop-types": 0,
+    "unicorn/consistent-function-scoping": 0,
+    "unicorn/filename-case": 0,
+    "unicorn/no-nested-ternary": 0,
+    "unicorn/prefer-spread": 0,
+    "unicorn/no-null": 0,
+    "react-perf/jsx-no-new-function-as-prop": 0,
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "click-events-have-key-events":"off",
+    "@typescript-eslint/no-magic-numbers": [
+      "error",
+      {
+        "ignoreArrayIndexes": true,
+        "ignore": [-1, 0, 1]
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
