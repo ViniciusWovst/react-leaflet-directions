@@ -1,7 +1,8 @@
 import React from 'react';
+import Map from '../../components/Map';
 
 const Home: React.FC = () => {
-  return <div></div>;
+  return <Map />;
 };
 
 export default Home;
