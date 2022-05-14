@@ -24,7 +24,5 @@
   }
 ],
 "eslint.lintTask.enable": true,
-"eslint.run": "onType",
-
-"tslint.jsEnable": true,
+"eslint.run": "onType"
 }

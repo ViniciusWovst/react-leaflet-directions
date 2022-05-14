@@ -21,6 +21,7 @@ export const fetchDirections = (
   startPosition: number[],
   destinationPosition: number[],
   profile: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any =>
   fetch(
     `https://api.mapbox.com/directions/v5/mapbox/${profile}/${startPosition[1]}%2C${startPosition[0]}%3B${destinationPosition[1]}%2C${destinationPosition[0]}?language=pt-BR?alternatives=true&geometries=polyline&steps=true&${ACCESS_TOKEN_MAP_BOX}`,

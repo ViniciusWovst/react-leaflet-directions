@@ -5,7 +5,7 @@ interface TLocation {
   lng: number;
   accuracy: number;
 }
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useCurrentLocation = (): any => {
   const [currentLocation, setCurrentLocation] =
     useState<TLocation>();

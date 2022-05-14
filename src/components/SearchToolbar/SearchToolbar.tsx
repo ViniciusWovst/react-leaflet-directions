@@ -146,17 +146,11 @@ const SearchToolbar: React.FC<SearchToolbarProps> = ({
         <Card className={classes.content}>
           <div className={classes.textFieldLocationContainer}>
             <SelectLocation
-              defaultInputValue={startLocation?.place || ''}
-              placeholder="Choose start location"
               onLocationSelected={handleStartLocationSelected}
             />
           </div>
           <div className={classes.textFieldLocationContainer}>
             <SelectLocation
-              defaultInputValue={
-                destinationLocation?.place || ''
-              }
-              placeholder="Choose Destination"
               onLocationSelected={
                 handleDestinationLocationSelected
               }

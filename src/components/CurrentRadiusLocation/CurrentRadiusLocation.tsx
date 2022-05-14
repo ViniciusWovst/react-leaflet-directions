@@ -9,47 +9,42 @@ type CurrentRadiusLocationProps = {
   position?: LatLngExpression;
   children?: React.ReactNode;
 };
-const CurrentRadiusLocation: React.FC<CurrentRadiusLocationProps> =
-  ({ children }) => {
-    const { currentLocation } = useCurrentLocation();
-    console.log('currentLocation ', currentLocation);
-    const theme = useTheme();
 
-    return (
-      <>
-        <Circle
-          center={currentLocation || [0, 0]}
-          radius={currentLocation?.accuracy || 0}
-          options={
-            {
-              //interactive: false,
-            }
-          }
-          pathOptions={{
-            fillColor: theme.palette.primary.main,
-            fillOpacity: 0.35,
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            stroke: false,
-          }}
-        >
-          {children}
-        </Circle>
+const CurrentRadiusLocation: React.FC<
+  CurrentRadiusLocationProps
+> = ({ children }) => {
+  const { currentLocation } = useCurrentLocation();
+  console.log('currentLocation ', currentLocation);
+  const theme = useTheme();
 
-        <CircleMarker
-          center={currentLocation || [0, 0]}
-          radius={5}
-          pathOptions={{
-            stroke: true,
-            weight: 1,
-            //fill: true,
-            color: 'white',
-            fillColor: theme.palette.primary.main,
-            fillOpacity: 1,
-          }}
-        />
-      </>
-    );
-  };
+  return (
+    <>
+      <Circle
+        center={currentLocation || [0, 0]}
+        radius={currentLocation?.accuracy || 0}
+        pathOptions={{
+          fillColor: theme.palette.primary.main,
+          fillOpacity: 0.35,
+          stroke: false,
+        }}
+      >
+        {children}
+      </Circle>
+
+      <CircleMarker
+        center={currentLocation || [0, 0]}
+        radius={5}
+        pathOptions={{
+          stroke: true,
+          weight: 1,
+          //fill: true,
+          color: 'white',
+          fillColor: theme.palette.primary.main,
+          fillOpacity: 1,
+        }}
+      />
+    </>
+  );
+};
 
 export default CurrentRadiusLocation;

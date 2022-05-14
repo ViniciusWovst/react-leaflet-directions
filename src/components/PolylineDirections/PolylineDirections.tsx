@@ -9,6 +9,8 @@ import React, { useEffect, useRef } from 'react';
 import { Polyline, Popup } from 'react-leaflet';
 import { TRouteInformation } from '../../types';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
+import { Polyline as LeafletPolyline } from 'leaflet';
+import * as geojson from 'geojson';
 
 const styles = (/*theme: Theme*/) => ({
   polyline: {
@@ -30,12 +32,19 @@ const PolylineDirections: React.FC<PolylineDirectionsProps> = ({
   //classes,
   routeSelected,
 }) => {
-  const leafletRef = useRef();
+  const leafletRef =
+    useRef<
+      LeafletPolyline<
+        geojson.LineString | geojson.MultiLineString
+      >
+    >();
 
   const theme = useTheme();
 
   useEffect(() => {
-    leafletRef.current.openPopup();
+    if (leafletRef && leafletRef.current) {
+      leafletRef.current.openPopup();
+    }
   }, []);
 
   return (
@@ -72,7 +81,7 @@ const PolylineDirections: React.FC<PolylineDirectionsProps> = ({
             <div>
               <DirectionsCarIcon color="primary" />
             </div>
-            {parseInt(routeInformation.duration)} min
+            {parseInt(routeInformation.duration.toString())} min
           </Typography>
           <Typography style={{ fontSize: 12 }} component="h2">
             <b>{routeInformation.distance.toFixed(2)} km</b>

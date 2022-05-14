@@ -16,6 +16,12 @@
     "module": "esnext",
     "strict": false,
     "jsx": "react-jsx",
+    "types": [
+      "jest",
+      "node",
+      "react",
+      "react-dom"
+    ],
     "lib": [
       "dom",
       "es6",
@@ -27,7 +33,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
   },
   "include": [
     "src/**/*",

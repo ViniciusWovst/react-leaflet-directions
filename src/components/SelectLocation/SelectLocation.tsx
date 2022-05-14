@@ -16,13 +16,14 @@ type SelectLocationProps = {
 
 const SelectLocation: React.FC<SelectLocationProps> = props => {
   const loadOptions = async (
-    inputValue: string,
-    callback: (options: OptionTypeBase[]) => void,
-  ) => {
+    inputText: string,
+  ): Promise<OptionTypeBase[]> => {
     const MAX_LENGTH = 5;
-    if (inputValue.length < MAX_LENGTH) return;
+    if (inputText.length < MAX_LENGTH) {
+      return [];
+    }
     const places: TLocation[] = [];
-    const response = await fetchLocalMapBox(inputValue);
+    const response = await fetchLocalMapBox(inputText);
     response.map((item: TPlace) => {
       const coords = [];
       coords[0] = item.center[1];
@@ -35,8 +36,9 @@ const SelectLocation: React.FC<SelectLocationProps> = props => {
       });
     });
 
-    callback(places);
+    return places;
   };
+
   const theme = useTheme();
 
   const customStyles = {
