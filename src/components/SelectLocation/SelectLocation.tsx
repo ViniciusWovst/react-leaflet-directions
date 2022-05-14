@@ -1,56 +1,87 @@
+import { useTheme } from '@material-ui/core';
 import React from 'react';
 import { OptionTypeBase } from 'react-select';
 import AsyncSelect from 'react-select/async';
-import { fetchLocalMapBox } from '../../api/MapBox';
+import { fetchLocalMapBox, TPlace } from '../../api/MapBox';
 
-const SelectLocation: React.FC = props => {
+export type TLocation = {
+  label: string;
+  value: string;
+  coords: number[];
+  place: string;
+};
+type SelectLocationProps = {
+  onLocationSelected: (location: TLocation) => void;
+};
+
+const SelectLocation: React.FC<SelectLocationProps> = props => {
   const loadOptions = async (
     inputValue: string,
     callback: (options: OptionTypeBase[]) => void,
   ) => {
     const MAX_LENGTH = 5;
     if (inputValue.length < MAX_LENGTH) return;
-    const places: any = [];
+    const places: TLocation[] = [];
     const response = await fetchLocalMapBox(inputValue);
-    response.features.map((item: any) => {
+    response.map((item: TPlace) => {
+      const coords = [];
+      coords[0] = item.center[1];
+      coords[1] = item.center[0];
       places.push({
         label: item.place_name,
         value: item.place_name,
-        coords: item.center,
+        coords: coords,
         place: item.place_name,
       });
     });
 
     callback(places);
   };
+  const theme = useTheme();
 
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
-      borderBottom: '1px dotted pink',
-      color: state.isSelected ? 'red' : 'blue',
-      //padding: 20,
+      borderBottom: '1px solid',
+      borderColor: theme.palette.primary.main,
+      color: state.isSelected
+        ? theme.palette.text.primary
+        : 'black',
+      backgroundColor: state.isSelected
+        ? theme.palette.primary.dark
+        : 'white',
     }),
 
-    control: (provided, state) => ({
-      ...provided,
-      color: state.isSelected ? 'red' : 'blue',
-    }),
-
-    singleValue: (provided, state) => {
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      const opacity = state.isDisabled ? 0.5 : 1;
-      const transition = 'opacity 300ms';
-
-      return { ...provided, opacity, transition };
+    indicatorSeparator: styles => {
+      return {
+        ...styles,
+        display: 'none',
+      };
+    },
+    dropdownIndicator: styles => {
+      return {
+        ...styles,
+        display: 'none',
+      };
+    },
+    control: styles => {
+      return {
+        ...styles,
+        '&:hover': { borderColor: theme.palette.primary.main }, // border style on hover
+        border: '1px solid lightgray', // default border color
+        boxShadow: 'none',
+      };
     },
   };
+
   return (
     <>
       <AsyncSelect
+        isClearable={true}
+        onChange={props.onLocationSelected}
         loadOptions={loadOptions}
-        {...props}
         styles={customStyles}
+        {...props}
       />
     </>
   );

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 interface TLocation {
   lat: number;
   lng: number;
+  accuracy: number;
 }
 
 const useCurrentLocation = (): any => {
@@ -10,14 +11,23 @@ const useCurrentLocation = (): any => {
     useState<TLocation>();
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (
-      position,
-    ) {
-      setCurrentLocation({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      });
-    });
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        setCurrentLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+        });
+      },
+      null,
+      options,
+    );
 
     const watchId = navigator.geolocation.watchPosition(
       handlePositionReceived,
@@ -26,8 +36,13 @@ const useCurrentLocation = (): any => {
   }, []);
 
   function handlePositionReceived({ coords }) {
-    const { latitude, longitude } = coords;
-    setCurrentLocation({ lat: latitude, lng: longitude });
+    const { latitude, longitude, accuracy } = coords;
+    console.log('coords ', coords);
+    setCurrentLocation({
+      lat: latitude,
+      lng: longitude,
+      accuracy: accuracy,
+    });
   }
 
   return { currentLocation };

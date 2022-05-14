@@ -3,6 +3,7 @@ import { Circle, CircleMarker } from 'react-leaflet';
 
 import { LatLngExpression } from 'leaflet';
 import { useCurrentLocation } from '../../hooks/useLocation';
+import { useTheme } from '@material-ui/core';
 
 type CurrentRadiusLocationProps = {
   position?: LatLngExpression;
@@ -11,18 +12,25 @@ type CurrentRadiusLocationProps = {
 const CurrentRadiusLocation: React.FC<CurrentRadiusLocationProps> =
   ({ children }) => {
     const { currentLocation } = useCurrentLocation();
+    console.log('currentLocation ', currentLocation);
+    const theme = useTheme();
 
     return (
       <>
         <Circle
           center={currentLocation || [0, 0]}
-          radius={20}
+          radius={currentLocation?.accuracy || 0}
+          options={
+            {
+              //interactive: false,
+            }
+          }
           pathOptions={{
-            //strokeColor: '#8B0000',
-            //fillColor: '#8B0000',
+            fillColor: theme.palette.primary.main,
             fillOpacity: 0.35,
             strokeOpacity: 0.8,
             strokeWeight: 2,
+            stroke: false,
           }}
         >
           {children}
@@ -32,10 +40,11 @@ const CurrentRadiusLocation: React.FC<CurrentRadiusLocationProps> =
           center={currentLocation || [0, 0]}
           radius={5}
           pathOptions={{
-            //strokeColor: '#8B0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            //fillColor: '#8B0000',
+            stroke: true,
+            weight: 1,
+            //fill: true,
+            color: 'white',
+            fillColor: theme.palette.primary.main,
             fillOpacity: 1,
           }}
         />
