@@ -72,7 +72,8 @@ const CurrentRadiusLocation: React.FC<
         className={styles.cone}
         style={{
           transform: `rotate(${
-            orientation ? orientation.alpha : 0
+            // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+            orientation ? orientation.alpha * 2 : 0
           }deg)`,
         }}
       />,
