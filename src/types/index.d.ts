@@ -1,5 +1,5 @@
 import { LatLngExpression } from 'leaflet';
-import { AbsoluteOrientationSensor } from './sensors';
+import { AbsoluteOrientationSensor, Gyroscope } from './sensors';
 
 export type TRouteInformation = {
   positions: LatLngExpression[] | LatLngExpression[][];
@@ -14,5 +14,6 @@ export type TRouteInformation = {
 declare global {
   interface Window {
     AbsoluteOrientationSensor: typeof AbsoluteOrientationSensor;
+    Gyroscope: typeof Gyroscope;
   }
 }

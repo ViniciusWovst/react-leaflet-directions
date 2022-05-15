@@ -59,7 +59,7 @@ declare class GravitySensor extends Accelerometer {
 
 // Gyroscope: https://www.w3.org/TR/gyroscope/
 
-declare class Gyroscope extends Sensor {
+export class Gyroscope extends Sensor {
   constructor(options?: MotionSensorOptions);
   readonly x?: number | undefined;
   readonly y?: number | undefined;
