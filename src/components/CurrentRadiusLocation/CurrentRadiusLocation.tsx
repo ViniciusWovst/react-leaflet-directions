@@ -8,7 +8,8 @@ import { useTheme } from '@material-ui/core';
 import { MotionSensorOptions } from '../../types/sensors';
 import styles from './CurrentRadiusLocation.module.css';
 //import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-//import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import * as ReactDOMServer from 'react-dom/server';
 
 type CurrentRadiusLocationProps = {
   position?: LatLngExpression;
@@ -65,18 +66,25 @@ const CurrentRadiusLocation: React.FC<
   if (!currentLocation) return <div>loading</div>;
 
   const icon = new DivIcon({
-    // className: styles.cone,
-    html: `<div class="${
-      styles.cone
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    }" style="transform: rotate(${
-      orientation ? orientation.alpha : 0
-    }deg);" ></div>`,
+    //className: styles.cone,
+    html: ReactDOMServer.renderToString(
+      <ArrowBackIcon
+        className={styles.cone}
+        style={{
+          transform: `rotate(${
+            orientation ? orientation.alpha : 0
+          }deg)`,
+        }}
+      />,
+    ),
+    //`<div  style="transform: rotate(${
+    //orientation ? orientation.alpha : 0
+    //}deg);" ></div>`,
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     iconSize: [0, 0],
 
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    iconAnchor: [70, 94],
+    iconAnchor: [0, 0],
   });
 
   return (
