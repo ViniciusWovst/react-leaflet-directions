@@ -95,7 +95,7 @@ const CurrentRadiusLocation: React.FC<
         <div
           style={{
             position: 'absolute',
-            top: '50%',
+            top: '70%',
             left: '10%',
             // eslint-disable-next-line @typescript-eslint/no-magic-numbers
             zIndex: 999999,
