@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
-
+/*
 interface TLocation {
   lat: number;
   lng: number;
   accuracy: number;
+  heading?: number;
 }
+*/
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const useCurrentLocation = (): any => {
+const useCurrentLocation = (): GeolocationCoordinates => {
   const [currentLocation, setCurrentLocation] =
-    useState<TLocation>();
-
+    useState<GeolocationCoordinates>();
   useEffect(() => {
     const options = {
       enableHighAccuracy: true,
@@ -19,11 +20,8 @@ const useCurrentLocation = (): any => {
 
     navigator.geolocation.getCurrentPosition(
       function (position) {
-        setCurrentLocation({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-          accuracy: position.coords.accuracy,
-        });
+        console.log('position', position);
+        setCurrentLocation(position.coords);
       },
       null,
       options,
@@ -36,16 +34,12 @@ const useCurrentLocation = (): any => {
   }, []);
 
   function handlePositionReceived({ coords }) {
-    const { latitude, longitude, accuracy } = coords;
+    //const { latitude, longitude, accuracy } = coords;
     console.log('coords ', coords);
-    setCurrentLocation({
-      lat: latitude,
-      lng: longitude,
-      accuracy: accuracy,
-    });
+    setCurrentLocation(coords);
   }
 
-  return { currentLocation };
+  return currentLocation;
 };
 
 export { useCurrentLocation };
