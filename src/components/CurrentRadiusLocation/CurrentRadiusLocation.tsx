@@ -4,6 +4,8 @@ import { Circle, CircleMarker, Marker } from 'react-leaflet';
 
 import { LatLng, LatLngExpression, DivIcon } from 'leaflet';
 import { useCurrentLocation } from '../../hooks/useLocation';
+import { useDeviceOrietation } from '../../hooks/useDeviceOrientation';
+
 import { useTheme } from '@material-ui/core';
 
 import { MotionSensorOptions } from '../../types/sensors';
@@ -21,7 +23,10 @@ const CurrentRadiusLocation: React.FC<
   CurrentRadiusLocationProps
 > = ({ children }) => {
   const currentLocation = useCurrentLocation();
+  const deviceOrientation = useDeviceOrietation();
   console.log('currentLocation ', currentLocation);
+  console.log('deviceOrientation ', deviceOrientation);
+
   const theme = useTheme();
   const [orientation, setOrientation] =
     React.useState<DeviceOrientationEvent>();
@@ -41,7 +46,7 @@ const CurrentRadiusLocation: React.FC<
       true,
     );
     const options: MotionSensorOptions = {
-      frequency: 60,
+      frequency: 100,
       referenceFrame: 'device',
     };
     const sensor = new window.AbsoluteOrientationSensor(options);
@@ -74,7 +79,9 @@ const CurrentRadiusLocation: React.FC<
         style={{
           transform: `rotate(${
             // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-            currentLocation ? currentLocation.heading : 0
+            currentLocation
+              ? (Math.PI / 180) * currentLocation.heading
+              : 0
           }deg)`,
         }}
       />,
@@ -105,7 +112,10 @@ const CurrentRadiusLocation: React.FC<
           }}
         >
           Device orientation
+          <br />
           {`heading: ${currentLocation.heading}`}
+          <br />
+          {`heading 2: ${deviceOrientation.heading}`}
           <br />
           {`Absolute: ${orientation.absolute}`}
           <br />

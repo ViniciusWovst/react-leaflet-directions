@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react';
-/*
-interface TLocation {
-  lat: number;
-  lng: number;
-  accuracy: number;
-  heading?: number;
-}
-*/
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useCurrentLocation = (): GeolocationCoordinates => {
   const [currentLocation, setCurrentLocation] =
     useState<GeolocationCoordinates>();
   useEffect(() => {
-    const options = {
+    const options: PositionOptions = {
       enableHighAccuracy: true,
       timeout: 5000,
       maximumAge: 0,
