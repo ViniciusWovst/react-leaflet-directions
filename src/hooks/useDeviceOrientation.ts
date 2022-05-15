@@ -86,7 +86,7 @@ const useDeviceOrietation = (): DeviceOriention => {
   );
   const onDeviceOrientation = useCallback(
     (ev: DeviceOrientationEventCustom) => {
-      let heading = 0;
+      let heading;
       if ('compassHeading' in ev) {
         heading = ev.compassHeading;
       } else if ('webkitCompassHeading' in ev) {
@@ -121,6 +121,8 @@ const useDeviceOrietation = (): DeviceOriention => {
         : 'deviceorientation';
 
     window.addEventListener(DO_EVENT, onDeviceOrientation);
+    return () =>
+      window.removeEventListener(DO_EVENT, onDeviceOrientation);
   }, [onDeviceOrientation]);
   return currentDeviceOrientation;
 };
