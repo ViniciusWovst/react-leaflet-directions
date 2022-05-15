@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
-import { Circle, CircleMarker } from 'react-leaflet';
+import { Circle, CircleMarker, Marker } from 'react-leaflet';
 
-import { LatLng, LatLngExpression } from 'leaflet';
+import { LatLng, LatLngExpression, DivIcon } from 'leaflet';
 import { useCurrentLocation } from '../../hooks/useLocation';
 import { useTheme } from '@material-ui/core';
 
 import { MotionSensorOptions } from '../../types/sensors';
+import styles from './CurrentRadiusLocation.module.css';
+//import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 //import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 type CurrentRadiusLocationProps = {
@@ -61,6 +63,22 @@ const CurrentRadiusLocation: React.FC<
     //absolutePosition && absolutePosition[0] * 100,
   );
   if (!currentLocation) return <div>loading</div>;
+
+  const icon = new DivIcon({
+    // className: styles.cone,
+    html: `<div class="${
+      styles.cone
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    }" style="transform: rotate(${
+      orientation ? orientation.alpha : 0
+    }deg);" ></div>`,
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    iconSize: [0, 0],
+
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    iconAnchor: [70, 94],
+  });
+
   return (
     <>
       {orientation && (
@@ -150,6 +168,28 @@ const CurrentRadiusLocation: React.FC<
           fillColor: theme.palette.primary.main,
           fillOpacity: 1,
         }}
+      />
+      <Marker
+        icon={icon}
+        position={
+          new LatLng(
+            currentLocation.latitude,
+            currentLocation.longitude,
+          ) || [0, 0]
+        }
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+
+        // you can use optional `placement`
+      ></Marker>
+      <CircleMarker
+        className={styles.cone}
+        center={
+          new LatLng(
+            currentLocation.latitude,
+            currentLocation.longitude,
+          ) || [0, 0]
+        }
+        radius={5}
       />
     </>
   );
