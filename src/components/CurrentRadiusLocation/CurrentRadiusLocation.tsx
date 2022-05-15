@@ -73,7 +73,7 @@ const CurrentRadiusLocation: React.FC<
         style={{
           transform: `rotate(${
             // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-            orientation ? orientation.alpha * 2 : 0
+            orientation ? orientation.alpha / 2 : 0
           }deg)`,
         }}
       />,
