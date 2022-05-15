@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Circle, CircleMarker, Marker } from 'react-leaflet';
 
 import { LatLng, LatLngExpression, DivIcon } from 'leaflet';
@@ -8,7 +8,6 @@ import { useDeviceOrietation } from '../../hooks/useDeviceOrientation';
 
 import { useTheme } from '@material-ui/core';
 
-import { MotionSensorOptions } from '../../types/sensors';
 import styles from './CurrentRadiusLocation.module.css';
 //import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
@@ -28,13 +27,13 @@ const CurrentRadiusLocation: React.FC<
   console.log('deviceOrientation ', deviceOrientation);
 
   const theme = useTheme();
-  const [orientation, setOrientation] =
-    React.useState<DeviceOrientationEvent>();
+  //const [orientation, setOrientation] =
+  //React.useState<DeviceOrientationEvent>();
 
-  const [absolutePosition, setAbsolutePosition] =
-    React.useState<number[]>();
+  // const [absolutePosition, setAbsolutePosition] =
+  //   React.useState<number[]>();
 
-  function handleOrientation(event: DeviceOrientationEvent) {
+  /*function handleOrientation(event: DeviceOrientationEvent) {
     setOrientation(event);
 
     // Do stuff with the new orientation data
@@ -63,6 +62,7 @@ const CurrentRadiusLocation: React.FC<
     });
     sensor.start();
   }, []);
+  */
 
   console.log(
     'absolutePosition ',
@@ -79,9 +79,7 @@ const CurrentRadiusLocation: React.FC<
         style={{
           transform: `rotate(${
             // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-            currentLocation
-              ? (Math.PI / 180) * currentLocation.heading
-              : 0
+            deviceOrientation ? deviceOrientation.heading : 0
           }deg)`,
         }}
       />,
@@ -98,7 +96,7 @@ const CurrentRadiusLocation: React.FC<
 
   return (
     <>
-      {orientation && (
+      {deviceOrientation && (
         <div
           style={{
             position: 'absolute',
@@ -117,52 +115,19 @@ const CurrentRadiusLocation: React.FC<
           <br />
           {`heading 2: ${deviceOrientation.heading}`}
           <br />
-          {`Absolute: ${orientation.absolute}`}
+          {`Absolute: ${deviceOrientation.absolute}`}
           <br />
-          {`alpha: ${orientation.alpha.toFixed(4)}`}
+          {`alpha: ${deviceOrientation.alpha.toFixed(4)}`}
           <br />
-          {`beta: ${orientation.beta.toFixed(4)}`}
+          {`beta: ${deviceOrientation.beta.toFixed(4)}`}
           <br />
-          {`gamma: ${orientation.gamma.toFixed(4)}`}
+          {`gamma: ${deviceOrientation.gamma.toFixed(4)}`}
           <br />
-          {`type: ${orientation.type}`}
+          {`type: ${deviceOrientation.type}`}
           <br />
         </div>
       )}
 
-      {absolutePosition && (
-        <div
-          style={{
-            position: 'absolute',
-            top: '70%',
-            left: '10%',
-            // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-            zIndex: 999999,
-            backgroundColor: 'white',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          absolutePosition
-          <br />
-          {`absolutePosition[0]: ${absolutePosition[0].toFixed(
-            4,
-          )}`}
-          <br />
-          {`absolutePosition[2]: ${absolutePosition[1].toFixed(
-            4,
-          )} `}
-          <br />
-          {`absolutePosition[3]: ${absolutePosition[2].toFixed(
-            4,
-          )} `}
-          <br />
-          {`absolutePosition[4]: ${absolutePosition[3].toFixed(
-            4,
-          )} `}
-          <br />
-        </div>
-      )}
       <Circle
         center={
           new LatLng(
