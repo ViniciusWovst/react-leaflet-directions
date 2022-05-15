@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import React, { useEffect } from 'react';
 import { Circle, CircleMarker, Marker } from 'react-leaflet';
 
@@ -73,7 +74,7 @@ const CurrentRadiusLocation: React.FC<
         style={{
           transform: `rotate(${
             // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-            orientation ? orientation.alpha : 0
+            currentLocation ? currentLocation.heading : 0
           }deg)`,
         }}
       />,
@@ -108,11 +109,11 @@ const CurrentRadiusLocation: React.FC<
           <br />
           {`Absolute: ${orientation.absolute}`}
           <br />
-          {`alpha: ${orientation.alpha}`}
+          {`alpha: ${orientation.alpha.toFixed(4)}`}
           <br />
-          {`beta: ${orientation.beta}`}
+          {`beta: ${orientation.beta.toFixed(4)}`}
           <br />
-          {`gamma: ${orientation.gamma}`}
+          {`gamma: ${orientation.gamma.toFixed(4)}`}
           <br />
           {`type: ${orientation.type}`}
           <br />
@@ -134,13 +135,21 @@ const CurrentRadiusLocation: React.FC<
         >
           absolutePosition
           <br />
-          {`absolutePosition[0]: ${absolutePosition[0]}`}
+          {`absolutePosition[0]: ${absolutePosition[0].toFixed(
+            4,
+          )}`}
           <br />
-          {`absolutePosition[2]: ${absolutePosition[1]} `}
+          {`absolutePosition[2]: ${absolutePosition[1].toFixed(
+            4,
+          )} `}
           <br />
-          {`absolutePosition[3]: ${absolutePosition[2]} `}
+          {`absolutePosition[3]: ${absolutePosition[2].toFixed(
+            4,
+          )} `}
           <br />
-          {`absolutePosition[4]: ${absolutePosition[3]} `}
+          {`absolutePosition[4]: ${absolutePosition[3].toFixed(
+            4,
+          )} `}
           <br />
         </div>
       )}
