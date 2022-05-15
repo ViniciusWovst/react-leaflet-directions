@@ -8,7 +8,7 @@ import { useTheme } from '@material-ui/core';
 import { MotionSensorOptions } from '../../types/sensors';
 import styles from './CurrentRadiusLocation.module.css';
 //import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import * as ReactDOMServer from 'react-dom/server';
 
 type CurrentRadiusLocationProps = {
@@ -68,12 +68,12 @@ const CurrentRadiusLocation: React.FC<
   const icon = new DivIcon({
     //className: styles.cone,
     html: ReactDOMServer.renderToString(
-      <ArrowBackIcon
+      <ArrowUpwardIcon
         className={styles.cone}
         style={{
           transform: `rotate(${
             // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-            orientation ? orientation.alpha / 2 : 0
+            orientation ? orientation.alpha : 0
           }deg)`,
         }}
       />,
