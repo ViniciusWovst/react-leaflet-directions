@@ -27,48 +27,7 @@ const CurrentRadiusLocation: React.FC<
   console.log('deviceOrientation ', deviceOrientation);
 
   const theme = useTheme();
-  //const [orientation, setOrientation] =
-  //React.useState<DeviceOrientationEvent>();
 
-  // const [absolutePosition, setAbsolutePosition] =
-  //   React.useState<number[]>();
-
-  /*function handleOrientation(event: DeviceOrientationEvent) {
-    setOrientation(event);
-
-    // Do stuff with the new orientation data
-  }
-  useEffect(() => {
-    window.addEventListener(
-      'deviceorientation',
-      handleOrientation,
-      true,
-    );
-    const options: MotionSensorOptions = {
-      frequency: 100,
-      referenceFrame: 'device',
-    };
-    const sensor = new window.AbsoluteOrientationSensor(options);
-
-    sensor.addEventListener('reading', () => {
-      // model is a Three.js object instantiated elsewhere.
-      setAbsolutePosition(sensor.quaternion);
-      //model.quaternion.fromArray(sensor.quaternion).inverse();
-    });
-    sensor.addEventListener('error', error => {
-      if (event.type == 'NotReadableError') {
-        console.log('Sensor is not available.', error);
-      }
-    });
-    sensor.start();
-  }, []);
-  */
-
-  console.log(
-    'absolutePosition ',
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    //absolutePosition && absolutePosition[0] * 100,
-  );
   if (!currentLocation) return <div>loading</div>;
 
   const icon = new DivIcon({
@@ -84,9 +43,7 @@ const CurrentRadiusLocation: React.FC<
         }}
       />,
     ),
-    //`<div  style="transform: rotate(${
-    //orientation ? orientation.alpha : 0
-    //}deg);" ></div>`,
+
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     iconSize: [0, 0],
 
@@ -170,20 +127,7 @@ const CurrentRadiusLocation: React.FC<
             currentLocation.longitude,
           ) || [0, 0]
         }
-        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-
-        // you can use optional `placement`
       ></Marker>
-      <CircleMarker
-        className={styles.cone}
-        center={
-          new LatLng(
-            currentLocation.latitude,
-            currentLocation.longitude,
-          ) || [0, 0]
-        }
-        radius={5}
-      />
     </>
   );
 };

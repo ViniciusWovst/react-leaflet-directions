@@ -118,7 +118,7 @@ const useDeviceOrietation = (): DeviceOriention => {
   const onDeviceOrientationDebounced = debounce(
     onDeviceOrientation,
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    100,
+    150,
   );
 
   useEffect(() => {
@@ -131,6 +131,18 @@ const useDeviceOrietation = (): DeviceOriention => {
       DO_EVENT,
       onDeviceOrientationDebounced,
     );
+
+    window.addEventListener(
+      'compassneedscalibration',
+      function (event) {
+        alert(
+          'Your compass needs calibrating! Wave your device in a figure-eight motion',
+        );
+        event.preventDefault();
+      },
+      true,
+    );
+
     return () =>
       window.removeEventListener(
         DO_EVENT,
