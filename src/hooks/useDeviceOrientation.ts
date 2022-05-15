@@ -1,3 +1,4 @@
+import { debounce } from '@material-ui/core';
 import { useCallback, useEffect, useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -114,16 +115,28 @@ const useDeviceOrietation = (): DeviceOriention => {
     [compassHeading, currentDeviceOrientation],
   );
 
+  const onDeviceOrientationDebounced = debounce(
+    onDeviceOrientation,
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+    500,
+  );
+
   useEffect(() => {
     const DO_EVENT =
       'ondeviceorientationabsolute' in window
         ? 'deviceorientationabsolute'
         : 'deviceorientation';
 
-    window.addEventListener(DO_EVENT, onDeviceOrientation);
+    window.addEventListener(
+      DO_EVENT,
+      onDeviceOrientationDebounced,
+    );
     return () =>
-      window.removeEventListener(DO_EVENT, onDeviceOrientation);
-  }, [onDeviceOrientation]);
+      window.removeEventListener(
+        DO_EVENT,
+        onDeviceOrientationDebounced,
+      );
+  }, [onDeviceOrientationDebounced]);
   return currentDeviceOrientation;
 };
 
