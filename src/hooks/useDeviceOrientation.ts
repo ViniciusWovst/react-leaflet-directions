@@ -118,7 +118,7 @@ const useDeviceOrietation = (): DeviceOriention => {
   const onDeviceOrientationDebounced = debounce(
     onDeviceOrientation,
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    500,
+    100,
   );
 
   useEffect(() => {
