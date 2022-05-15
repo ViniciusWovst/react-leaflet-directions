@@ -10,7 +10,7 @@ import { useTheme } from '@material-ui/core';
 
 import styles from './CurrentRadiusLocation.module.css';
 //import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+//import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import * as ReactDOMServer from 'react-dom/server';
 
 type CurrentRadiusLocationProps = {
@@ -33,7 +33,7 @@ const CurrentRadiusLocation: React.FC<
   const icon = new DivIcon({
     //className: styles.cone,
     html: ReactDOMServer.renderToString(
-      <ArrowUpwardIcon
+      <div
         className={styles.cone}
         style={{
           transform: `rotate(${
@@ -48,7 +48,7 @@ const CurrentRadiusLocation: React.FC<
     iconSize: [0, 0],
 
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    iconAnchor: [0, 0],
+    iconAnchor: [101, 98],
   });
 
   return (
@@ -103,6 +103,7 @@ const CurrentRadiusLocation: React.FC<
       </Circle>
 
       <CircleMarker
+        className={styles.circleMarker}
         center={
           new LatLng(
             currentLocation.latitude,
