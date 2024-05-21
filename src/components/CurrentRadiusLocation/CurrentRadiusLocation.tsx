@@ -1,17 +1,15 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import React from 'react';
-import { Circle, CircleMarker, Marker } from 'react-leaflet';
+import { Circle, CircleMarker } from 'react-leaflet';
 
-import { LatLng, LatLngExpression, DivIcon } from 'leaflet';
+import { LatLng, LatLngExpression } from 'leaflet';
 import { useCurrentLocation } from '../../hooks/useLocation';
 import { useDeviceOrietation } from '../../hooks/useDeviceOrientation';
 
 import { useTheme } from '@material-ui/core';
 
 import styles from './CurrentRadiusLocation.module.css';
-//import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-//import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import * as ReactDOMServer from 'react-dom/server';
+//import * as ReactDOMServer from 'react-dom/server';
 
 type CurrentRadiusLocationProps = {
   position?: LatLngExpression;
@@ -29,7 +27,7 @@ const CurrentRadiusLocation: React.FC<
   const theme = useTheme();
 
   if (!currentLocation) return <div>loading</div>;
-
+  /*
   const icon = new DivIcon({
     //className: styles.cone,
     html: ReactDOMServer.renderToString(
@@ -50,10 +48,12 @@ const CurrentRadiusLocation: React.FC<
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     iconAnchor: [101, 98],
   });
+  */
+  //https://openlayers.org/workshop/en/mobile/compass.html
 
   return (
     <>
-      {deviceOrientation && (
+      {false && (
         <div
           style={{
             position: 'absolute',
@@ -114,12 +114,12 @@ const CurrentRadiusLocation: React.FC<
         pathOptions={{
           stroke: true,
           weight: 1,
-          //fill: true,
           color: 'white',
           fillColor: theme.palette.primary.main,
           fillOpacity: 1,
         }}
       />
+      {/*
       <Marker
         icon={icon}
         position={
@@ -129,6 +129,7 @@ const CurrentRadiusLocation: React.FC<
           ) || [0, 0]
         }
       ></Marker>
+      */}
     </>
   );
 };

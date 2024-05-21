@@ -1,8 +1,8 @@
 {
   "typescript.validate.enable": false,
 "editor.codeActionsOnSave": {
-  "source.fixAll": true,
-  "source.fixAll.eslint": true
+  "source.fixAll": "explicit",
+  "source.fixAll.eslint": "explicit"
 },
 "eslint.alwaysShowStatus": true,
 "eslint.debug": true,
